@@ -8,7 +8,7 @@
 
 User.destroy_all
 10.times do
-    User.create(username: Faker::Name.first_name, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, photo: rand(1..10))
+    User.create(username: Faker::Name.first_name, password: '1234', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, photo: rand(1..10))
 end
 
 Message.destroy_all
@@ -23,12 +23,12 @@ end
 
 Like.destroy_all
 30.times do
-    Like.create(user_id: User.all.ids.sample, post_id: Post.all.ids.sample)
+    Like.create(user_id: User.all.ids.sample, post_id: Post.all.ids.sample, post_like: rand(1..100))
 end
 
 Comment.destroy_all
 30.times do
-    Comment.create(user_id: User.all.ids.sample, post_id: Post.all.ids.sample)
+    Comment.create(user_id: User.all.ids.sample, post_id: Post.all.ids.sample, post_comment: Faker::Quote.famous_last_words)
 end
 
 puts "Seeding done!"

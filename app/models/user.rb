@@ -2,13 +2,9 @@ class User < ApplicationRecord
     has_many :likes
     has_many :comments
     
-    # has_many :liked_posts, foreign_key: :post_id, class_name: "Like"
-    # has_many :posts, through: :liked_posts, source: :post
-    
-    # has_many :commented_posts, foreign_key: :post_id, class_name: "Comment"
-    # has_many :posts, through: :commented_posts, source: :
-    
-    
+
+    has_many :liked_posts, :through => :likes, source: :post
+    has_many :commented_posts, :through => :comments, source: :post
     
     # Will return an array of follows for the given user instance
     has_many :received_messages, foreign_key: :sender_id, class_name: "Message"

@@ -30,7 +30,6 @@ function App() {
 
   return (
     <>
-     <div>hello</div>
       <Navbar />
       <div className="App">
         <Routes>
