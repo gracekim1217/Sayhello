@@ -14,7 +14,7 @@ const navigate = useNavigate()
 
 function onSubmit(e){
     e.preventDefault()
-    navigate("/")
+    navigate("/login")
     const user = {
         username,
         password,
@@ -27,15 +27,26 @@ function onSubmit(e){
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(user)
     })
-    .then(res => {
-        if(res.ok) {
-            res.json().then(user => {
-                navigate(`/login`)
-            })
-        } else {
-            res.json().then(json => setErrors(Object.entries(json.errors)))
+    .then(r => {
+        if (r.ok) {
+            r.json()
+            .then(data => window.sessionStorage.setItem("user_id", data.id))
+            .then(() => navigate("/piano"))
+        }
+        else {
+            console.log("invalid")
+
         }
     })
+    // .then(res => {
+    //     if(res.ok) {
+    //         res.json().then(user => {
+    //             navigate(`/login`)
+    //         })
+    //     } else {
+    //         res.json().then(json => setErrors(Object.entries(json.errors)))
+    //     }
+    // })
 }
 
 const handleChange = (e) => {
