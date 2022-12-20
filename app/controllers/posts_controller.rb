@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
     def index
-        render json: Post.all, status: :ok
+        render json: Post.all, each_serializer: PostUserSerializer, status: :ok
     end
 
     def show
         post = find_post
-        render json: post, status: :ok
+        render json: post, serializer: PostLikeSerializer, status: :ok
     end
 
     def update

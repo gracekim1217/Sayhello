@@ -8,13 +8,13 @@ function SignUp() {
     first_name:'',
     last_name:'',
 })
-const [errors, setErrors] = useState([])
+// const [errors, setErrors] = useState([])
 const {username, password, first_name, last_name} = formData
 const navigate = useNavigate()
 
 function onSubmit(e){
     e.preventDefault()
-    navigate("/login")
+    // navigate("/")
     const user = {
         username,
         password,
@@ -30,8 +30,10 @@ function onSubmit(e){
     .then(r => {
         if (r.ok) {
             r.json()
-            .then(data => window.sessionStorage.setItem("user_id", data.id))
-            .then(() => navigate("/piano"))
+            .then(data => {
+                // window.sessionStorage.setItem("user_id", data.id))
+            // .then(() => 
+            navigate("/")})
         }
         else {
             console.log("invalid")
@@ -70,7 +72,7 @@ return (
         <input placeholder="Your Username..." type='text' name='last_name' value={last_name} onChange={handleChange} />
         
         <input id="signup-form" className="button" type='submit' value="Sign Up" onClick={onSubmit}/>
-        {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
+        {/* {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null} */}
         </div>
     </>
 

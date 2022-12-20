@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
       if user&.authenticate(params[:password])
         session[:user_id] = user.id
         # byebug
-        render json: user, status: :ok
+        render json: user, serializer: UserPostSerializer, status: :ok
       else
           render json: {errors: "Invalid Password or User"}
       end
