@@ -24,13 +24,14 @@ function Login({setCurrentUser}) {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      console.log(setCurrentUser);
       setCurrentUser(data);
       sessionStorage.setItem('user_id', data.id);
       sessionStorage.setItem('username', data.username);
       sessionStorage.setItem('first_name', data.first_name);
       sessionStorage.setItem('last_name', data.last_name);
-      sessionStorage.setItem('photo', data.photo)
+      sessionStorage.setItem('photo', data.photo);
+      // sessionStorage.setItem('post', data.posts.content);
       navigate(`/`)
     })
   }

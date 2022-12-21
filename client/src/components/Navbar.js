@@ -1,18 +1,21 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
 
-    function handleLogout() {
-        sessionStorage.clear()
-        navigate("/login")
-    }
+    // function handleLogout() {
+    //     sessionStorage.clear()
+    //     navigate("/login")
+    // }
+
+
   
     return (
       <header>
-        <button onClick={handleLogout}>Logout</button>
+        {/* <button onClick={handleLogout}>Logout</button> */}
+
       </header>
     );
   }

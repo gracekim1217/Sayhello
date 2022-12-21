@@ -56,8 +56,14 @@ const handleChange = (e) => {
     setFormData({ ...formData, [name]: value })
 }
 
+function handleBack() {
+    navigate("/login")
+}
+
 return (
     <> 
+        <button onClick={handleBack}>Back</button>
+
         <div id ="signup-page" className="content"> 
         <label>Username : </label>  
         <input placeholder="Your Username..." type='text' name='username' value={username} onChange={handleChange} />
