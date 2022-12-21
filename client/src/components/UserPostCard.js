@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function UserPostCard({post, currentUser, updatePost}) {
     const {id, content, image, user, likes, comments } = post
@@ -14,11 +14,44 @@ function UserPostCard({post, currentUser, updatePost}) {
         image:'',
     })
 
-    useEffect(() => {
-        fetch(`/posts/${id}`)
+    // useEffect(() => {
+    //     fetch(`/posts/${id}`)
+    //     .then(res => res.json())
+    //     .then(setFormData)
+    // },[id])
+        
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target
+    //     setFormData({ ...formData, [name]: value })
+    // }
+
+    function handleChange(e) {
+        setFormData({content: e.target.value});
+        }
+
+    function onSubmit(e){
+        e.preventDefault();
+        fetch(`/posts/${id}`,{
+        method:'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify(formData)
+        })
         .then(res => res.json())
-        .then(setFormData)
-    },[id])
+        .then(data => {
+            updatePost(data);
+            setNewContent("");
+            setEditing(false);
+        });
+            // navigate(`/users/:id`)
+    }
+
+    function handleDelete() {
+        fetch(`/posts/${id}`,{
+        method:'DELETE',
+        })
+        //  navigate("/users/:id")
+        window.location.reload();
+    }
 
     const editingTemplate = (
         <form className="stack-small" onSubmit={onSubmit}>
@@ -30,7 +63,7 @@ function UserPostCard({post, currentUser, updatePost}) {
                     id={id} 
                     className="post-text" 
                     type="text" 
-                    value={newContent}
+                    value={formData.content}
                     onChange={handleChange}/>
             </div>
             <div className="btn-group">
@@ -42,7 +75,7 @@ function UserPostCard({post, currentUser, updatePost}) {
                     Cancel
                     <span className="visually-hidden"></span>
                 </button>
-                <button type="submit" className="btn btn__primary post-edit">
+                <button type="submit" onClick={onSubmit} className="btn btn__primary post-edit">
                     Save
                     <span className="visually-hidden"></span>
                 </button>
@@ -72,45 +105,9 @@ function UserPostCard({post, currentUser, updatePost}) {
                 </div>
             </div>
         );
-        
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target
-    //     setFormData({ ...formData, [name]: value })
-    // }
-
-    function handleChange(e) {
-        setNewContent(e.target.value);
-        }
-
-    function onSubmit(e){
-        e.preventDefault();
-        fetch(`/posts/${id}`,{
-        method:'PATCH',
-        headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify(formData)
-        })
-        .then(res => res.json())
-        .then(data => {
-            updatePost();
-            setNewContent("");
-            setEditing(false);
-        });
-            // navigate(`/users/:id`)
-    }
-
-    function handleDelete() {
-        fetch(`/posts/${id}`,{
-          method:'DELETE',
-         })
-        //  navigate("/users/:id")
-         window.location.reload();
-    }
-    
-
     
     return (
         <>
-        {/* <button onClick={handleBack}>Back</button> */}
         <div>
             <div className="post">{isEditing ? editingTemplate : viewTemplate}</div>
         </div>

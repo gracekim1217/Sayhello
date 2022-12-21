@@ -4,7 +4,7 @@ import DisplayProfile from "./DisplayProfile"
 import { useNavigate } from "react-router-dom";
 
 
-function Feed({currentUser, users, posts, addPost, updatePost, deletePost}){
+function Feed({currentUser, users, posts, addPost, deletePost}){
     console.log(posts)
     const navigate = useNavigate()
 
@@ -25,7 +25,7 @@ function Feed({currentUser, users, posts, addPost, updatePost, deletePost}){
             <div className="content">
                 <h1 id="project-title">Feed</h1>
                 <NewPost addPost={addPost} />
-                <PostContainer posts={posts} currentUser={currentUser} updatePost={updatePost} deletePost={deletePost}/>
+                <PostContainer posts={posts} currentUser={currentUser} deletePost={deletePost}/>
             </div>
         </>
     )

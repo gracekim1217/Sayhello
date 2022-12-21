@@ -18,7 +18,7 @@ function App() {
   // const currentLastName = sessionStorage.getItem('last_name')
   // const currentPhoto = sessionStorage.getItem('photo')
   // const currentPost = sessionStorage.getItem('post')
-  console.log("hello")
+  // console.log(currentUser)
 
 
 
@@ -35,8 +35,8 @@ function App() {
     //   .then(data => setUsers(data))
     // },[])
 
-    // const updatePost = (updatedPost) => setPosts(current => {
-    //   return current.map(post => {
+    // const updatePost = (updatedPost) => setPosts(posts => {
+    //   return posts.map(post => {
     //    if(post.id === updatedPost.id){
     //      return updatedPost
     //    } else {
@@ -71,7 +71,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
             <Route path="/users/:id" element={<UserPost currentUser={currentUser} updatePost={updatePost} />} />
-            <Route path="/users/:id/messages" element={<UserMessage />} />
+            <Route path="/users/:id/messages" element={<UserMessage currentUser={currentUser} />} />
           </Routes>
         </div>
       }

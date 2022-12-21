@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 
 function UserPost({currentUser, updatePost}) {
-    const {id, username, first_name, last_name, photo} = currentUser
+    // const {id, username, first_name, last_name, photo} = currentUser
     console.log(currentUser.posts)
     const navigate = useNavigate()
 
@@ -25,7 +25,7 @@ function UserPost({currentUser, updatePost}) {
             <p>Last Name : {last_name}</p>
             <p></p> */}
             <h2>Posts </h2>
-                <div>{currentUser.posts && currentUser.posts.map(post => <UserPostCard key={post.id} post={post} currentUser={currentUser} updatePost={updatePost} />)}</div>
+                <div>{currentUser.posts && currentUser.posts.map(post => <UserPostCard key={post.id} name={post.name} post={post} currentUser={currentUser} updatePost={updatePost} />)}</div>
                 
         </div>
         </>
