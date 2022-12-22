@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Login({setCurrentUser}) {
-  console.log("hello")
+  // console.log("hello")
 
   const [formData, setFormData] = useState({
     username:'',
@@ -16,7 +16,6 @@ function Login({setCurrentUser}) {
 
   function onSubmitLogin(e){
     e.preventDefault();
-  
     fetch(`/login`,{
       method:'POST',
       headers:{'Content-Type': 'application/json'},
@@ -32,8 +31,8 @@ function Login({setCurrentUser}) {
       sessionStorage.setItem('photo', data.photo);
       setCurrentUser(data);
       // sessionStorage.setItem('post', data.posts.content);
-      navigate(`/`)
     })
+    navigate(`/`)
   }
 
   function onSubmitSignIn(){
@@ -51,10 +50,10 @@ function Login({setCurrentUser}) {
       <div id="login-page" className="content" > 
 
         <label>Username : </label>
-        <input placeholder="Your Username..." type='text' name='username' value={username} onChange={handleChange} />
+        <input placeholder="Your Username..." type='text' name='username' value={formData.username} onChange={handleChange} />
       
         <label>Password : </label>
-        <input placeholder="Your Password..." type='password' name='password' value={password} onChange={handleChange} />
+        <input placeholder="Your Password..." type='password' name='password' value={formData.password} onChange={handleChange} />
       
         <input id="login-form" className="button" type='submit' value='Log In' />
         <input id="signup-form" className="button" type='submit' value="Sign Up" 

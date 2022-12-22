@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function UserPostCard({post, currentUser, updatePost}) {
@@ -45,12 +45,13 @@ function UserPostCard({post, currentUser, updatePost}) {
             // navigate(`/users/:id`)
     }
 
-    function handleDelete() {
+    function handleDelete(e) {
+        e.preventDefault();
         fetch(`/posts/${id}`,{
         method:'DELETE',
         })
         //  navigate("/users/:id")
-        window.location.reload();
+        // window.location.reload();
     }
 
     const editingTemplate = (

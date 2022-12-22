@@ -1,12 +1,12 @@
 import UserPostCard from './UserPostCard'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // import {useState} from 'react';
 
 
-function UserPost({currentUser, updatePost}) {
+function UserPost({currentUser, updatePost, posts}) {
     // const {id, username, first_name, last_name, photo} = currentUser
-    console.log(currentUser.posts)
+    console.log(posts)
     const navigate = useNavigate()
 
     // const [imgSrc, setImgSrc] = useState("Invalid Image Source");
@@ -25,7 +25,8 @@ function UserPost({currentUser, updatePost}) {
             <p>Last Name : {last_name}</p>
             <p></p> */}
             <h2>Posts </h2>
-                <div>{currentUser.posts && currentUser.posts.map(post => <UserPostCard key={post.id} name={post.name} post={post} currentUser={currentUser} updatePost={updatePost} />)}</div>
+                <div>{posts && posts.filter(post => post.user_id === currentUser.id)
+                .map(post => <UserPostCard key={post.id} name={post.name} post={post} currentUser={currentUser} updatePost={updatePost} />)}</div>
                 
         </div>
         </>
