@@ -6,10 +6,12 @@ import SignUp from "./components/SignUp";
 import Feed from "./components/Feed";
 import UserPost from "./components/UserPost";
 import UserMessage from "./components/UserMessage";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const [posts, setPosts] = useState([])
-  // const [users, setUsers] = useState([])
+  const [messages, setMessages] = useState([])
+  const [editUser, setEditUser] = useState("")
   const [currentUser, setCurrentUser] = useState({
     user_id: sessionStorage.getItem('user_id'),
     username:  sessionStorage.getItem('username'),
@@ -17,7 +19,6 @@ function App() {
     last_name: sessionStorage.getItem('last_name'),
     photo: sessionStorage.getItem('photo')
   })
-  // console.log(currentUser)
 
   // const currentUserId = sessionStorage.getItem('user_id')
   // const currentUsername = sessionStorage.getItem('username')
@@ -34,23 +35,23 @@ function App() {
         .then(res => res.json())
         .then(posts => setPosts(posts))
     },[])
-    // console.log(posts)
-
-    // useEffect(() => {
-    //   fetch('/users')
-    //   .then(res => res.json())
-    //   .then(data => setUsers(data))
-    // },[])
-
-    // const updatePost = (updatedPost) => setPosts(posts => {
-    //   return posts.map(post => {
-    //    if(post.id === updatedPost.id){
-    //      return updatedPost
-    //    } else {
-    //      return post
-    //    }
-    //   })
-    // })
+    
+    useEffect(() => {
+      fetch('/messages')
+      .then(res => res.json())
+      .then(messages => setMessages(messages))
+    },[])
+    console.log(messages)
+    
+    const updateUser = (updatedUser) => setEditUser(currentUser => {
+      return currentUser.map(user => {
+       if(user.user_id === updatedUser.id){
+         return updatedUser
+       } else {
+         return user
+       }
+      })
+    })
 
     function updatePost(id, newPost) {
       const updatedPost = posts.map((post) => {
@@ -62,9 +63,21 @@ function App() {
       });
       setPosts(updatedPost);
     }
+
+    // function updateUser(id, newUser) {
+    //   const updatedUser = users.map((user) => {
+    //     if (id === post.id) {
+    //       //
+    //       return {...post, content: newUser}
+    //     }
+    //     return user;
+    //   });
+    //   setPosts(updatedUser);
+    // }
     
     const addPost = (post) => setPosts(current => [...current, post])
-    // const deletePost = (id) => setPosts(current => current.filter(b => p.id !== id)) 
+    const addMessage = (message) => setMessages(current => [...current, message])
+    // const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
   
   
   return (
@@ -76,8 +89,9 @@ function App() {
             <Route exact path='/' element={<Feed posts={posts} currentUser={currentUser} addPost={addPost} />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-            <Route path="/users/:id" element={<UserPost currentUser={currentUser} posts={posts} updatePost={updatePost} />} />
-            <Route path="/users/:id/messages" element={<UserMessage currentUser={currentUser} />} />
+            <Route path="/users/:id/posts" element={<UserPost currentUser={currentUser} posts={posts} updatePost={updatePost} />} />
+            <Route path="/users/:id/messages" element={<UserMessage currentUser={currentUser} messages={messages} addMessage={addMessage}/>} />
+            <Route path="/users/:id/profile" element={<UserProfile currentUser={currentUser} updateUser={updateUser} editUser={editUser}/>} />
           </Routes>
         </div>
       }

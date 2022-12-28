@@ -18,17 +18,17 @@ end
 
 Post.destroy_all
 15.times do
-    Post.create(content: Faker::Quote.famous_last_words, image: rand(1..15), user_id: User.all.ids.sample)
+    Post.create(content: Faker::Quote.famous_last_words, post_like: rand(1..100), image: rand(1..15), user_id: User.all.ids.sample)
 end
 
 Like.destroy_all
 30.times do
-    Like.create(post_id: Post.all.ids.sample, post_like: rand(1..100))
+    Like.create(post_id: Post.all.ids.sample, user_id: User.all.ids.sample)
 end
 
 Comment.destroy_all
 30.times do
-    Comment.create(post_id: Post.all.ids.sample, post_comment: Faker::Quote.famous_last_words)
+    Comment.create(post_id: Post.all.ids.sample, post_comment: Faker::Quote.famous_last_words, user_id: User.all.ids.sample)
 end
 
 puts "Seeding done!"

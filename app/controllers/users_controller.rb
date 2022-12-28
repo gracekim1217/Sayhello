@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    render json: User.all, status: :ok
+    render json: User.all, each_serializer: UserPostSerializer, status: :ok
   end
 
   def show

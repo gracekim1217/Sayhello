@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
     def show
         post = find_post
-        render json: post, serializer: PostLikeSerializer, status: :ok
+        render json: post, status: :ok
     end
 
     def update
@@ -15,8 +15,17 @@ class PostsController < ApplicationController
     end
 
     def create
-        post = Post.create!(post_params)
-        render json: post, status: :created
+        user_post = Post.create!(post_params)
+        user = User.find(session[:user_id])
+        user.save
+        # @post.user_id = current_user.id
+        render json: user_post, status: :created
+    end
+
+    def like
+        @post = Post.all.find(params[:id])
+        Like.create(user_id: current_user.id, post_id: @post.id)
+        redirect_to post_path(@post)
     end
 
     def destroy
@@ -32,7 +41,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.permit(:content, :image)
+        params.permit(:content, :image, :user_id)
     end
 end
 

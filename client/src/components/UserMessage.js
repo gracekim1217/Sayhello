@@ -1,9 +1,9 @@
-// import UserMessageCard from "./UserMessageCard"
+import UserMessageCard from "./UserMessageCard"
 import { useNavigate } from 'react-router-dom'
 
 
-function UserMessage() {
-    // console.log(currentUser)
+function UserMessage({messages, currentUser, addMessage}) {
+    console.log(messages.filter(message => message.receiver.id))
     // console.log(currentUser.posts)
     const navigate = useNavigate()
 
@@ -19,7 +19,9 @@ function UserMessage() {
         <div>
             <button onClick={handleBack}>Back</button>
         <div>
-        <h2>Posts </h2>
+        <h2>Messages </h2>
+            <div>{messages && messages.filter(message => message.receiver_id === currentUser.id)
+                .map(message => <UserMessageCard key={message.id} message={message} currentUser={currentUser} addMessage={addMessage}/>)}</div>
             {/* <div>{currentUser.posts && currentUser.posts.map(post => <UserMessageCard key={post.id} name={post.name} post={post} currentUser={currentUser} />)}</div> */}
         </div>
         </div>

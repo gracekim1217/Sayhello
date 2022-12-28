@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
     def index
-        render json: Comment.all, status: :ok
+        render json: Comment.all, each_serializer: CommentUserSerializer, status: :ok
     end
 
     def show

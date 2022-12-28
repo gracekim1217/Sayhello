@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function Feed({currentUser, posts, addPost, deletePost}){
-    console.log(posts)
+    // console.log(posts)
     const navigate = useNavigate()
 
     function handleLogout() {

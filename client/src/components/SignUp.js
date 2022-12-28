@@ -33,7 +33,7 @@ function onSubmit(e){
             .then(data => {
                 // window.sessionStorage.setItem("user_id", data.id))
             // .then(() => 
-            navigate("/")})
+            navigate("/login")})
         }
         else {
             console.log("invalid")

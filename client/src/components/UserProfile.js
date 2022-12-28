@@ -1,67 +1,48 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-function UserPostCard({post, currentUser, updatePost}) {
-    const {id, content, image, user, like, comments } = post
+
+function UserProfile({currentUser, updateUser, editUser}) {
+        // const {username, first_name, last_name} = currentUser
+      console.log(currentUser)
+    const currentUsername = sessionStorage.getItem('username')
+    const currentFirstName = sessionStorage.getItem('first_name')
+    const currentLastName = sessionStorage.getItem('last_name')
     const [isEditing, setEditing] = useState(false);
-    const [newContent, setNewContent] = useState('');
-    // console.log(currentUser.posts)
-    const navigate = useNavigate()
-
-
     const [formData, setFormData] = useState({
-        content:'',
-        image:'',
+        first_name:'',
+        last_name:''
     })
 
-    // useEffect(() => {
-    //     fetch(`/posts/${id}`)
-    //     .then(res => res.json())
-    //     .then(setFormData)
-    // },[id])
-        
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target
-    //     setFormData({ ...formData, [name]: value })
-    // }
-
     function handleChange(e) {
-        setFormData({content: e.target.value});
-        }
+        setFormData({
+            first_name: e.target.value,
+            last_name: e.target.value
+        });
+    }
 
     function onSubmit(e){
         e.preventDefault();
-        fetch(`/posts/${id}`,{
+        fetch(`/users/${currentUser.user_id}`,{
         method:'PATCH',
         headers: {'Content-Type': 'application/json'},
         body:JSON.stringify(formData)
         })
         .then(res => res.json())
         .then(data => {
-            updatePost(data);
-            setNewContent("");
+            updateUser(data);
+            // setNewContent("");
             setEditing(false);
         });
-            // navigate(`/users/:id`)
-    }
-
-    function handleDelete(e) {
-        e.preventDefault();
-        fetch(`/posts/${id}`,{
-        method:'DELETE',
-        })
-        //  navigate(`/users/${id}/posts`)
-        // window.location.reload();
     }
 
     const editingTemplate = (
         <form className="stack-small" onSubmit={onSubmit}>
             <div className="form-group">
-                <label className="post-label" htmlFor={id}>
-                    {content}
+                <label className="post-label" htmlFor={currentUser.user_id}>
+                    {currentFirstName}
                 </label>
                 <input 
-                    id={id} 
+                    // id={id} 
                     className="post-text" 
                     type="text" 
                     value={formData.content}
@@ -86,8 +67,8 @@ function UserPostCard({post, currentUser, updatePost}) {
         const viewTemplate = (
             <div className="stack-small">
                 <div className="c-cb">
-                    <label className="post-label" htmlFor={id}>
-                    {content}
+                    <label className="post-label" htmlFor={currentUser.user_id}>
+                    {currentLastName}
                     </label>
                 </div>
                 <div className="btn-group">
@@ -97,23 +78,27 @@ function UserPostCard({post, currentUser, updatePost}) {
                         onClick={() => setEditing(true)}>
                         Edit <span className="visually-hidden"></span>
                     </button>
-                    <button
+                    {/* <button
                         type="button"
                         className="btn btn__danger"
                         onClick={handleDelete}>
                         Delete <span className="visually-hidden"></span>
-                    </button>
+                    </button> */}
                 </div>
             </div>
-        );
-    
-    return (
-        <>
+        )
+
+    return(
         <div>
+            <h3>Profile</h3>
+            <p> Username : {currentUsername}</p>
+            <p> First Name : {currentFirstName}</p>
+            <p> Last Name : {currentLastName}</p>
+            {/* <button>Edit Profile</button> */}
             <div className="post">{isEditing ? editingTemplate : viewTemplate}</div>
+
         </div>
-        </>
     )
 }
 
-export default UserPostCard
+export default UserProfile

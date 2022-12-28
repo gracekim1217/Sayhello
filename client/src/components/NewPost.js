@@ -6,9 +6,11 @@ function NewPost({addPost}) {
     const [formData, setFormData] = useState({
         content: '',
         image: '',
+        user_id: sessionStorage.getItem('user_id'),
+        // post_like: ''
       })
 
-    const {content, image} = formData
+    const {content, image, user_id, post_like} = formData
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -19,7 +21,9 @@ function NewPost({addPost}) {
         e.preventDefault()
         const post = {
             content,
-            image
+            image,
+            user_id,
+            // post_like : 0
         }
 
         fetch('/posts',{
@@ -28,8 +32,17 @@ function NewPost({addPost}) {
             body: JSON.stringify(post)
         })
         .then(res => res.json())
-        .then(addPost)
-        navigate("/")
+        .then(post => addPost(post))
+        // .then(post => addPost({
+        //   content,
+        //   image,
+        //   user_id,
+        //   like: [],
+
+        // })
+        
+
+        // .then(navigate("/"))
     }
     
 

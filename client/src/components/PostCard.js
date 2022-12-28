@@ -3,14 +3,21 @@ import React, { useEffect } from 'react'
 
 
 
-function PostCard({post, currentUser}) {
+function PostCard({post, currentUser, deletePost}) {
     const navigate = useNavigate()
-    const {id, content, image, user, likes, comments } = post
+    const {id, content, image, user, like, comments, post_like } = post
+
+    // function handleLike() {
+    //   post_like + 1
+    // }
+    
     // const {first_name, last_name} = currentUser
     // const {username} = user
     // const {id, username} = users
 
-    // console.log(post)
+    // console.log(user.username)
+
+    // console.log(post.likes.id)
     // console.log(user.username)
 
     // useEffect(() => {
@@ -19,23 +26,40 @@ function PostCard({post, currentUser}) {
     //     .then(posts => console.log(posts))
     // },[])
 
-    function handleDelete() {
-       fetch(`/posts/${id}`,{
-         method:'DELETE',
-        })
+    // function handleDelete() {
+    //    fetch(`/posts/${id}`,{
+    //      method:'DELETE',
+    //     })
+    //     deletePost(id);
+
+        // .then((r) => r.json()) // this line will error out, because there is no JSON to parse!
+        // .then((data) => deletePost(data));
         // navigate('/')
-        window.location.reload(false);
-    }
+        // window.location.reload(false);
+    // }
+      const commentMap = comments.map((comment) => (
+        <div> {comment.user_id} : {comment.post_comment} </div>
+      ))
   
       return (
         <>
-        <div className="post">
-            <div> {user.username} : {content}</div>
-            {/* <p className="book-detail">Written in <i>{year}</i></p> */}
-            {/* <button className="button"><Link id="edit-button" to={`/books/${id}/edit`}>Edit</Link></button> */}
-            <button className="button" onClick={handleDelete}>✖️</button>
-        </div>
-      </>
+          <div className="post">
+          {user ? ( <h3> {user.username} : {content} </h3> )  : null}
+          {/* {user ? ( <div> 💖{like.post_like} </div> ) : null} */}
+          {user ? ( <div> 💖 {post_like? post_like : 0 } </div> ) : null}
+          {user ? commentMap : null}
+
+          {/* //   (<p>{likes}</p> */}
+          {/* // )  */}
+            
+        
+          {/* <p>comments : {comments}</p> */}
+              {/* <div> {user?.username} : {content}</div> */}
+              {/* <p className="book-detail">Written in <i>{year}</i></p> */}
+              {/* <button className="button"><Link id="edit-button" to={`/books/${id}/edit`}>Edit</Link></button> */}
+              {/* <button className="button" onClick={handleDelete}>✖️</button> */}
+          </div>
+        </>
     );
   }
   
