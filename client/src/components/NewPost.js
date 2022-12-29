@@ -52,8 +52,8 @@ function NewPost({addPost}) {
           {/* <label>Title : </label> */}
           <input type='text' name='content' value={formData.content} onChange={handleChange} />
           
-          <label> Image : </label>
-          <input type='text' name='image' value={formData.image} onChange={handleChange} />
+          {/* <label> Image : </label>
+          <input type='text' name='image' value={formData.image} onChange={handleChange} /> */}
         
           {/* <label>Year : </label>
           <input type='number' name='year' value={formData.year} onChange={handleChange} />

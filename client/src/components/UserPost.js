@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom'
 // import {useState} from 'react';
 
 
-function UserPost({currentUser, updatePost, posts}) {
+function UserPost({currentUser, updatePost, posts, deletePost}) {
     // const {id, username, first_name, last_name, photo} = currentUser
-    console.log(posts)
-    const navigate = useNavigate()
-
     // const [imgSrc, setImgSrc] = useState("Invalid Image Source");
+    // console.log(posts)
+    const navigate = useNavigate()
 
     function handleBack() {
         navigate("/")
@@ -26,7 +25,7 @@ function UserPost({currentUser, updatePost, posts}) {
             <p></p> */}
             <h2>Posts </h2>
                 <div>{posts && posts.filter(post => post.user_id === currentUser.id)
-                .map(post => <UserPostCard key={post.id} name={post.name} post={post} currentUser={currentUser} updatePost={updatePost} />)}</div>
+                .map(post => <UserPostCard key={post.id} name={post.name} post={post} currentUser={currentUser} updatePost={updatePost} deletePost={deletePost}/>)}</div>
                 
         </div>
         </>

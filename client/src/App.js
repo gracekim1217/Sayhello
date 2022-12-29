@@ -10,6 +10,7 @@ import UserProfile from "./components/UserProfile";
 
 function App() {
   const [posts, setPosts] = useState([])
+  // const [postArray, setPostArray] = useState([])
   const [messages, setMessages] = useState([])
   const [editUser, setEditUser] = useState("")
   const [currentUser, setCurrentUser] = useState({
@@ -33,7 +34,7 @@ function App() {
     useEffect(() => {
         fetch(`/posts`)
         .then(res => res.json())
-        .then(posts => setPosts(posts))
+        .then(posts => {setPosts(posts)})
     },[])
     
     useEffect(() => {
@@ -52,6 +53,12 @@ function App() {
        }
       })
     })
+
+    function handleUpdateLike(updatedLike){
+      const updateLike = posts.map((post) => 
+      post.id === updatedLike.id ? updatedLike : post);
+      setPosts(updateLike);
+    }
 
     function updatePost(id, newPost) {
       const updatedPost = posts.map((post) => {
@@ -77,7 +84,7 @@ function App() {
     
     const addPost = (post) => setPosts(current => [...current, post])
     const addMessage = (message) => setMessages(current => [...current, message])
-    // const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
+    const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
   
   
   return (
@@ -86,10 +93,10 @@ function App() {
       {!sessionStorage.getItem('user_id') ? <Login/> :
         <div className="App">
           <Routes>
-            <Route exact path='/' element={<Feed posts={posts} currentUser={currentUser} addPost={addPost} />} />
+            <Route exact path='/' element={<Feed posts={posts} currentUser={currentUser} addPost={addPost} handleUpdateLike={handleUpdateLike}/>} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-            <Route path="/users/:id/posts" element={<UserPost currentUser={currentUser} posts={posts} updatePost={updatePost} />} />
+            <Route path="/users/:id/posts" element={<UserPost currentUser={currentUser} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />
             <Route path="/users/:id/messages" element={<UserMessage currentUser={currentUser} messages={messages} addMessage={addMessage}/>} />
             <Route path="/users/:id/profile" element={<UserProfile currentUser={currentUser} updateUser={updateUser} editUser={editUser}/>} />
           </Routes>

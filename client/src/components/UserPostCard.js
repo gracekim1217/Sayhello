@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function UserPostCard({post, currentUser, updatePost}) {
+function UserPostCard({post, currentUser, updatePost, deletePost}) {
     const {id, content, image, user, like, comments } = post
     const [isEditing, setEditing] = useState(false);
-    const [newContent, setNewContent] = useState('');
+    // const [renderPosts, setRenderPosts] = useState({})
+    // const [newContent, setNewContent] = useState('');
     // console.log(currentUser.posts)
     const navigate = useNavigate()
 
@@ -30,7 +31,7 @@ function UserPostCard({post, currentUser, updatePost}) {
         }
 
     function onSubmit(e){
-        e.preventDefault();
+        // e.preventDefault();
         fetch(`/posts/${id}`,{
         method:'PATCH',
         headers: {'Content-Type': 'application/json'},
@@ -39,7 +40,7 @@ function UserPostCard({post, currentUser, updatePost}) {
         .then(res => res.json())
         .then(data => {
             updatePost(data);
-            setNewContent("");
+            // setNewContent("");
             setEditing(false);
         });
             // navigate(`/users/:id`)
@@ -50,6 +51,8 @@ function UserPostCard({post, currentUser, updatePost}) {
         fetch(`/posts/${id}`,{
         method:'DELETE',
         })
+        .then((r) => r.json())
+        .then((data) => deletePost(data))
         //  navigate(`/users/${id}/posts`)
         // window.location.reload();
     }
@@ -58,7 +61,7 @@ function UserPostCard({post, currentUser, updatePost}) {
         <form className="stack-small" onSubmit={onSubmit}>
             <div className="form-group">
                 <label className="post-label" htmlFor={id}>
-                    {content}
+                    ({content}? {content} : "No Posts")
                 </label>
                 <input 
                     id={id} 

@@ -3,13 +3,24 @@ import React, { useEffect } from 'react'
 
 
 
-function PostCard({post, currentUser, deletePost}) {
+function PostCard({post, currentUser, deletePost, handleUpdateLike}) {
     const navigate = useNavigate()
     const {id, content, image, user, like, comments, post_like } = post
+    // console.log(post_like)
 
-    // function handleLike() {
-    //   post_like + 1
-    // }
+    function handleLikes() {
+      const updateLikesObj = {
+        post_like: post_like + 1,
+      }
+
+      fetch(`/posts/${id}`,{
+        method:'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify(updateLikesObj),
+        })
+        .then(res => res.json())
+        .then(data => handleUpdateLike(data));
+    }
     
     // const {first_name, last_name} = currentUser
     // const {username} = user
@@ -37,17 +48,17 @@ function PostCard({post, currentUser, deletePost}) {
         // navigate('/')
         // window.location.reload(false);
     // }
-      const commentMap = comments.map((comment) => (
-        <div> {comment.user_id} : {comment.post_comment} </div>
-      ))
+      // const commentMap = comments.map((comment) => (
+      //   <div> {comment.user_id} : {comment.post_comment} </div>
+      // ))
   
       return (
         <>
           <div className="post">
           {user ? ( <h3> {user.username} : {content} </h3> )  : null}
           {/* {user ? ( <div> 💖{like.post_like} </div> ) : null} */}
-          {user ? ( <div> 💖 {post_like? post_like : 0 } </div> ) : null}
-          {user ? commentMap : null}
+          {user ? ( <button onClick={handleLikes}> 💖 {post_like? post_like : 0 } </button> ) : null}
+          {/* {user ? commentMap : null} */}
 
           {/* //   (<p>{likes}</p> */}
           {/* // )  */}
