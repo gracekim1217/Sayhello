@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function UserPostCard({post, currentUser, updatePost, deletePost}) {
+function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePost, deletePost, renderEditForm, setRenderEditForm}) {
     const {id, content, image, user, like, comments } = post
     const [isEditing, setEditing] = useState(false);
     // const [renderPosts, setRenderPosts] = useState({})
     // const [newContent, setNewContent] = useState('');
     // console.log(currentUser.posts)
     const navigate = useNavigate()
+    const [errors, setErrors] = useState([])
+
 
 
     const [formData, setFormData] = useState({
@@ -38,19 +40,27 @@ function UserPostCard({post, currentUser, updatePost, deletePost}) {
         body:JSON.stringify(formData)
         })
         .then(res => res.json())
-        .then(data => {
-            updatePost(data);
-            // setNewContent("");
+        .then(() => {
+            setRenderEditForm(!renderEditForm)
             setEditing(false);
-        });
+
+        })
+
+        // .then(data => {
+        //     updatePost(data);
+        //     // setNewContent("");
+        //     setEditing(false);
+        // });
             // navigate(`/users/:id`)
     }
 
     function handleDelete(e) {
         e.preventDefault();
         fetch(`/posts/${id}`,{
-        method:'DELETE',
+        method:'DELETE'
         })
+        .then(() => setRenderPosts(!renderPosts))
+
         // .then((r) => r.json())
         // .then((data) => deletePost(data))
         //  navigate(`/users/${id}/posts`)
@@ -61,7 +71,7 @@ function UserPostCard({post, currentUser, updatePost, deletePost}) {
         <form className="stack-small" onSubmit={onSubmit}>
             <div className="form-group">
                 <label className="post-label" htmlFor={id}>
-                    ({content}? {content} : "No Posts")
+                    {content}
                 </label>
                 <input 
                     id={id} 

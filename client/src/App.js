@@ -14,6 +14,9 @@ function App() {
   const [messages, setMessages] = useState([])
   const [editUser, setEditUser] = useState("")
   const [renderPosts, setRenderPosts] = useState(false)
+  const [renderEditForm, setRenderEditForm] = useState(false)
+  const [renderMessages, setRenderMessages] = useState(false)
+
 
   const [currentUser, setCurrentUser] = useState({
     user_id: sessionStorage.getItem('user_id'),
@@ -37,13 +40,13 @@ function App() {
         fetch(`/posts`)
         .then(res => res.json())
         .then(posts => {setPosts(posts)})
-    },[renderPosts])
+    },[renderPosts, renderEditForm])
     
     useEffect(() => {
       fetch('/messages')
       .then(res => res.json())
       .then(messages => setMessages(messages))
-    },[])
+    },[renderMessages])
     // console.log(messages)
     
     const updateUser = (updatedUser) => setEditUser(currentUser => {
@@ -98,8 +101,8 @@ function App() {
             <Route exact path='/' element={<Feed posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} currentUser={currentUser} addPost={addPost} />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-            <Route path="/users/:id/posts" element={<UserPost currentUser={currentUser} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />
-            <Route path="/users/:id/messages" element={<UserMessage currentUser={currentUser} messages={messages} addMessage={addMessage}/>} />
+            <Route path="/users/:id/posts" element={<UserPost renderPosts={renderPosts} setRenderPosts={setRenderPosts} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm} currentUser={currentUser} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />
+            <Route path="/users/:id/messages" element={<UserMessage renderMessages={renderMessages} setRenderMessages={setRenderMessages} currentUser={currentUser} messages={messages} addMessage={addMessage}/>} />
             <Route path="/users/:id/profile" element={<UserProfile currentUser={currentUser} updateUser={updateUser} editUser={editUser}/>} />
           </Routes>
         </div>
