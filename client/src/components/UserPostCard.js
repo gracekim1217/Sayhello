@@ -31,7 +31,7 @@ function UserPostCard({post, currentUser, updatePost, deletePost}) {
         }
 
     function onSubmit(e){
-        // e.preventDefault();
+        e.preventDefault();
         fetch(`/posts/${id}`,{
         method:'PATCH',
         headers: {'Content-Type': 'application/json'},
@@ -51,8 +51,8 @@ function UserPostCard({post, currentUser, updatePost, deletePost}) {
         fetch(`/posts/${id}`,{
         method:'DELETE',
         })
-        .then((r) => r.json())
-        .then((data) => deletePost(data))
+        // .then((r) => r.json())
+        // .then((data) => deletePost(data))
         //  navigate(`/users/${id}/posts`)
         // window.location.reload();
     }

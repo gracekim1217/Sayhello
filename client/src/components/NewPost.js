@@ -1,14 +1,17 @@
 import React, { useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function NewPost({addPost}) {
+function NewPost({addPost, renderPosts, setRenderPosts}) {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         content: '',
         image: '',
         user_id: sessionStorage.getItem('user_id'),
-        // post_like: ''
+        post_like: ''
       })
+    const [like, setLike] = useState(0)
+    const [errors, setErrors] = useState([])
+
 
     const {content, image, user_id, post_like} = formData
 
@@ -20,10 +23,9 @@ function NewPost({addPost}) {
     function onSubmit(e){
         e.preventDefault()
         const post = {
-            content,
-            image,
-            user_id,
-            // post_like : 0
+            ...formData,
+            // like: like
+            post_like : 0
         }
 
         fetch('/posts',{
@@ -31,8 +33,21 @@ function NewPost({addPost}) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(post)
         })
-        .then(res => res.json())
-        .then(post => addPost(post))
+        .then(resp => {
+          if(resp.ok){
+              resp.json().then(() => {
+                  setRenderPosts(!renderPosts)
+                  navigate('/')})
+          } else{
+              resp.json().then(data => {
+                  console.log(data.errors)
+                  setErrors(data.errors)
+              })
+          }
+      })
+        // .then(res => res.json())
+        // .then(post => addPost(post))
+
         // .then(post => addPost({
         //   content,
         //   image,
@@ -48,7 +63,7 @@ function NewPost({addPost}) {
 
     return(
         <div id ='book-form' className='content'>
-        <div onSubmit={onSubmit}>
+        <div >
           {/* <label>Title : </label> */}
           <input type='text' name='content' value={formData.content} onChange={handleChange} />
           
@@ -61,7 +76,7 @@ function NewPost({addPost}) {
           <label>Description</label>
           <textarea type='text' rows='4' cols='50' name='description' value={formData.description} onChange={handleChange} /> */}
         
-          <input id="add-book" className="button" type='submit' value='Add Post' onClick={onSubmit}/>
+          <button id="add-book" className="button" type='submit' value='Add Post' onClick={onSubmit}>Add Post</button>
         </div>
       </div>
     )

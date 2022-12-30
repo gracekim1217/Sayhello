@@ -13,6 +13,8 @@ function App() {
   // const [postArray, setPostArray] = useState([])
   const [messages, setMessages] = useState([])
   const [editUser, setEditUser] = useState("")
+  const [renderPosts, setRenderPosts] = useState(false)
+
   const [currentUser, setCurrentUser] = useState({
     user_id: sessionStorage.getItem('user_id'),
     username:  sessionStorage.getItem('username'),
@@ -35,14 +37,14 @@ function App() {
         fetch(`/posts`)
         .then(res => res.json())
         .then(posts => {setPosts(posts)})
-    },[])
+    },[renderPosts])
     
     useEffect(() => {
       fetch('/messages')
       .then(res => res.json())
       .then(messages => setMessages(messages))
     },[])
-    console.log(messages)
+    // console.log(messages)
     
     const updateUser = (updatedUser) => setEditUser(currentUser => {
       return currentUser.map(user => {
@@ -54,11 +56,11 @@ function App() {
       })
     })
 
-    function handleUpdateLike(updatedLike){
-      const updateLike = posts.map((post) => 
-      post.id === updatedLike.id ? updatedLike : post);
-      setPosts(updateLike);
-    }
+    // function handleUpdateLike(updatedLike){
+    //   const updateLike = posts.map((post) => 
+    //   post.id === updatedLike.id ? updatedLike : post);
+    //   setPosts(updateLike);
+    // }
 
     function updatePost(id, newPost) {
       const updatedPost = posts.map((post) => {
@@ -93,7 +95,7 @@ function App() {
       {!sessionStorage.getItem('user_id') ? <Login/> :
         <div className="App">
           <Routes>
-            <Route exact path='/' element={<Feed posts={posts} currentUser={currentUser} addPost={addPost} handleUpdateLike={handleUpdateLike}/>} />
+            <Route exact path='/' element={<Feed posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} currentUser={currentUser} addPost={addPost} />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
             <Route path="/users/:id/posts" element={<UserPost currentUser={currentUser} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />
