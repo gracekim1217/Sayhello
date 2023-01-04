@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePost, deletePost, renderEditForm, setRenderEditForm}) {
-    const {id, content, image, user, like, comments } = post
+    const {id, content, image, user, like, comments, created_at } = post
     const [isEditing, setEditing] = useState(false);
     // const [renderPosts, setRenderPosts] = useState({})
     // const [newContent, setNewContent] = useState('');
@@ -70,9 +70,10 @@ function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePos
     const editingTemplate = (
         <form className="stack-small" onSubmit={onSubmit}>
             <div className="form-group">
-                <label className="post-label" htmlFor={id}>
+                <h2 className="post-input" htmlFor={id}>
                     {content}
-                </label>
+                </h2>
+                
                 <input 
                     id={id} 
                     className="post-text" 
@@ -96,12 +97,14 @@ function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePos
             </div>
         </form>
         );
+
         const viewTemplate = (
             <div className="stack-small">
                 <div className="c-cb">
-                    <label className="post-label" htmlFor={id}>
+                    <h2 className="post-input" htmlFor={id}>
                     {content}
-                    </label>
+                    </h2>
+                    <h6 className="time-stamp"> {created_at} </h6>
                 </div>
                 <div className="btn-group">
                     <button 
@@ -123,7 +126,9 @@ function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePos
     return (
         <>
         <div>
-            <div className="post">{isEditing ? editingTemplate : viewTemplate}</div>
+            {post ? 
+            (<div className="user-post">{isEditing ? editingTemplate : viewTemplate}</div>)
+            : (<h2> Post Something! </h2>) }
         </div>
         </>
     )

@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
     def index
-        render json: Post.all, each_serializer: PostUserSerializer, status: :ok
+        post = Post.all.order('created_at DESC')
+        render json: post, each_serializer: PostUserSerializer, status: :ok
     end
 
     def show
         post = find_post
-        render json: post, status: :ok
+        render json: post, include: ['comments.user'], status: :ok
     end
 
     def update
@@ -41,7 +42,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.permit(:content, :image, :user_id)
+        params.permit(:content, :image, :user_id, :created_at, :post_like, :id)
     end
 end
 

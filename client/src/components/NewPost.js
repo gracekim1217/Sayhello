@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom'
 
 function NewPost({addPost, renderPosts, setRenderPosts}) {
     const navigate = useNavigate();
+    const [input, setInput] = useState('')
     const [formData, setFormData] = useState({
         content: '',
-        image: '',
+        // image: '',
         user_id: sessionStorage.getItem('user_id'),
         post_like: ''
       })
-    const [like, setLike] = useState(0)
+    // const [like, setLike] = useState(0)
     const [errors, setErrors] = useState([])
 
 
@@ -18,14 +19,20 @@ function NewPost({addPost, renderPosts, setRenderPosts}) {
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
+        setInput(e.target.value)
     }
 
     function onSubmit(e){
         e.preventDefault()
+        setInput('')
         const post = {
-            ...formData,
-            // like: like
-            post_like : 0
+            // ...formData,
+            // // like: like
+            // post_like : 0
+            content: formData.content,
+
+            user_id: formData.user_id,
+            post_like: formData.post_like
         }
 
         fetch('/posts',{
@@ -65,7 +72,7 @@ function NewPost({addPost, renderPosts, setRenderPosts}) {
         <div id ='book-form' className='content'>
         <div >
           {/* <label>Title : </label> */}
-          <input type='text' name='content' value={formData.content} onChange={handleChange} />
+          <input className="feed-input" type='text' name='content' value={input} onChange={handleChange} />
           
           {/* <label> Image : </label>
           <input type='text' name='image' value={formData.image} onChange={handleChange} /> */}
@@ -76,7 +83,7 @@ function NewPost({addPost, renderPosts, setRenderPosts}) {
           <label>Description</label>
           <textarea type='text' rows='4' cols='50' name='description' value={formData.description} onChange={handleChange} /> */}
         
-          <button id="add-book" className="button" type='submit' value='Add Post' onClick={onSubmit}>Add Post</button>
+          <button id="add-book" className="feed-button" type='submit' value='Add Post' onClick={onSubmit}>Post</button>
         </div>
       </div>
     )

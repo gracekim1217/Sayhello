@@ -1,18 +1,18 @@
 class MessagesController < ApplicationController
     def index
-        render json: Message.all, status: :ok
+        render json: Message.all.order('created_at ASC'), status: :ok
     end
 
     def show
         message = find_message
-        render json: message, status: :ok
+        render json: message.order('created_at ASC'), status: :ok
     end
 
-    def update
-        message = find_message
-        message.update!(message_params)
-        render json: message, status: :accepted
-    end
+    # def update
+    #     message = find_message
+    #     message.update!(message_params)
+    #     render json: message, status: :accepted
+    # end
 
     def create
         message = Message.create!(message_params)

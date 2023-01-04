@@ -59,11 +59,11 @@ function App() {
       })
     })
 
-    // function handleUpdateLike(updatedLike){
-    //   const updateLike = posts.map((post) => 
-    //   post.id === updatedLike.id ? updatedLike : post);
-    //   setPosts(updateLike);
-    // }
+    function handleUpdateLike(updatedLike){
+      const updateLike = posts.map((post) => 
+      post.id === updatedLike.id ? updatedLike : post);
+      setPosts(updateLike);
+    }
 
     function updatePost(id, newPost) {
       const updatedPost = posts.map((post) => {
@@ -97,8 +97,10 @@ function App() {
       <Navbar />
       {!sessionStorage.getItem('user_id') ? <Login/> :
         <div className="App">
+          <h1 className="h1">Name</h1>
+
           <Routes>
-            <Route exact path='/' element={<Feed posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} currentUser={currentUser} addPost={addPost} />} />
+            <Route exact path='/' element={<Feed posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} currentUser={currentUser} addPost={addPost} handleUpdateLike={handleUpdateLike}/>} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
             <Route path="/users/:id/posts" element={<UserPost renderPosts={renderPosts} setRenderPosts={setRenderPosts} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm} currentUser={currentUser} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />

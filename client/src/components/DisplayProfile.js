@@ -11,12 +11,12 @@ function DisplayProfile({currentUser}) {
     return(
         <div>
             {/* <img></img> */}
-            <h3>{username}</h3>
-            <p> First Name : {first_name}</p>
-            <p> Last Name : {last_name}</p>
+            <h2 className="h3">☺︎ {username}</h2>
+            <h4 className="h5"> First Name : {first_name}</h4>
+            <h4 className="h5"> Last Name : {last_name}</h4>
             {/* <img src={imgSrc} onError = {() => setImgSrc("https://i.pinimg.com/564x/20/0d/72/200d72a18492cf3d7adac8a914ef3520.jpg")} /> */}
-            <Link to={`/users/${id}/posts`}><p>Posts</p></Link>
-            <Link to={`/users/${id}/messages`}><p>Messages</p></Link>
+            <Link to={`/users/${id}/posts`}><button className="link">Posts</button></Link>
+            <Link to={`/users/${id}/messages`}><button className="link">Messages</button></Link>
             {/* <Link to={`/users/${id}/profile`}><p>View Profile</p></Link> */}
         </div>
     )

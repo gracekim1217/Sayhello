@@ -18,7 +18,7 @@ end
 
 Post.destroy_all
 15.times do
-    Post.create(content: Faker::Quote.famous_last_words, post_like: rand(1..100), image: rand(1..15), user_id: User.all.ids.sample)
+    Post.create(content: Faker::Quote.famous_last_words, post_like: 0, image: rand(1..15), user_id: User.all.ids.sample)
 end
 
 Like.destroy_all

@@ -15,17 +15,16 @@ function Feed({currentUser, posts, addPost, deletePost, handleUpdateLike, render
 
     return(
         <>
-            <button onClick={handleLogout}>Logout</button>
-
-            <div>
-                <h1>Profile</h1>
+            <button className="logout-button" onClick={handleLogout}>Logout</button>
+            <div className="feed-profile">
+                <h2 className="h2">Profile</h2>
                 <DisplayProfile currentUser={currentUser}/>
                 {/* {users.map(user => <DisplayProfile key={user.id} user={user} currentUserId={currentUserId}  />)} */}
             </div>
-            <div className="content">
-                <h1 id="project-title">Feed</h1>
+            <div className="feed-page">
+                <h1 className="h2">Feed</h1>
                 <NewPost addPost={addPost} renderPosts={renderPosts} setRenderPosts={setRenderPosts}/>
-                <PostContainer posts={posts} currentUser={currentUser} deletePost={deletePost} handleUpdateLike={handleUpdateLike}/>
+                <PostContainer posts={posts} currentUser={currentUser} renderPosts={renderPosts} setRenderPosts={setRenderPosts} deletePost={deletePost} handleUpdateLike={handleUpdateLike}/>
             </div>
         </>
     )
