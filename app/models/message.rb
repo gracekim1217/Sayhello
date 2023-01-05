@@ -5,4 +5,7 @@ class Message < ApplicationRecord
     # The user sending the message
     belongs_to :sender, foreign_key: :sender_id, class_name: "User"
 
+
+    validates :input, presence: true
+
 end

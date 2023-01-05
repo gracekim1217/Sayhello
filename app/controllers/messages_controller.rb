@@ -15,7 +15,10 @@ class MessagesController < ApplicationController
     # end
 
     def create
+        # binding.pry
         message = Message.create!(message_params)
+        user = User.find(session[:user_id])
+        user.save
         render json: message, status: :created
     end
 
@@ -32,6 +35,6 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-        params.permit(:input)
+        params.permit(:input, :sender_id, :receiver_id)
     end
 end

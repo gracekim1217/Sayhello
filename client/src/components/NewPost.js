@@ -8,7 +8,7 @@ function NewPost({addPost, renderPosts, setRenderPosts}) {
         content: '',
         // image: '',
         user_id: sessionStorage.getItem('user_id'),
-        post_like: ''
+        post_like: 0
       })
     // const [like, setLike] = useState(0)
     const [errors, setErrors] = useState([])
@@ -30,7 +30,6 @@ function NewPost({addPost, renderPosts, setRenderPosts}) {
             // // like: like
             // post_like : 0
             content: formData.content,
-
             user_id: formData.user_id,
             post_like: formData.post_like
         }

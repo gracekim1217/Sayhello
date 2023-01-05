@@ -20,6 +20,14 @@ class User < ApplicationRecord
     has_many :senders, through: :sent_messages, source: :sender
 
     has_secure_password
+
+    validates :username, presence: true
+    validates :password, presence: true
+
+    validates :first_name, presence: true
+    validates :last_name, presence: true
+
+
 end
 
 # has_many :tasks

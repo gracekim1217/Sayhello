@@ -100,7 +100,7 @@ function App() {
           <h1 className="h1">Name</h1>
 
           <Routes>
-            <Route exact path='/' element={<Feed posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} currentUser={currentUser} addPost={addPost} handleUpdateLike={handleUpdateLike}/>} />
+            <Route exact path='/' element={<Feed posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} currentUser={currentUser} addPost={addPost} handleUpdateLike={handleUpdateLike} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm}/>} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
             <Route path="/users/:id/posts" element={<UserPost renderPosts={renderPosts} setRenderPosts={setRenderPosts} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm} currentUser={currentUser} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />
