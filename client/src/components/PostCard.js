@@ -2,13 +2,13 @@ import {useNavigate} from 'react-router-dom'
 import React, { useState } from 'react'
 import { DateTime } from "luxon";
 
-function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts, setRenderPosts, renderEditForm, setRenderEditForm, message, renderMessages, setRenderMessages}) {
+function PostCard({post, currentUser, deletePost, handleUpdateLike, renderCommentsArray, setCommentsArray, renderPosts, setRenderPosts, renderEditForm, setRenderEditForm, message, renderMessages, setRenderMessages}) {
   const navigate = useNavigate()
   const [commentInput, setCommentInput] = useState('')
   const [isEditing, setEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
   const [input, setInput] = useState('')
-  const {id, content, user, comments, post_like, created_at, user_id } = post
+  const {id, content, user, comments, post_like, created_at, user_id, updated_at} = post
 
   const [formData, setFormData] = useState({
     post_comment: "",
@@ -96,7 +96,7 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
       <div className="form-group">
         <input 
           id={id} 
-          className="post-text" 
+          className="message-edit-input" 
           type="text" 
           value={input}
           name="input"
@@ -105,13 +105,13 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
       <div className="btn-group">
         <button type="submit" 
           onClick={onMessageSubmit}
-          className="btn btn__primary post-edit">
+          className="message-send-button">
             Send
           <span className="visually-hidden"></span>
         </button>
         <button
           type="button"
-          className="btn post-cancel"
+          className="message-send-button"
           onClick={() => setIsReplying(false)}>
             Cancel
           <span className="visually-hidden"></span>
@@ -123,9 +123,9 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
   const viewMessageTemplate = (
     <button 
       type="button" 
-      className="btn" 
+      className="message-button" 
       onClick={() => setIsReplying(true)}>
-        Message 
+        ✉️
       <span className="visually-hidden"></span>
     </button>
   )
@@ -158,10 +158,20 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
   }
   
   const formatted = DateTime
-    .fromISO(created_at)
+    .fromISO(updated_at)
     .setZone("EST")
     .toLocaleString(DateTime.DATETIME_MED);
     
+  // const currentUserId = sessionStorage.getItem('user_id')
+
+  function handleCommentDelete(e, id) {
+      e.preventDefault();
+      console.log(id)
+      fetch(`/comments/${id}`,{
+      method:'DELETE' })
+      .then(() => setRenderPosts(!renderPosts))
+  }
+
   const commentMap = comments.map(comment => (
     <div>
       <h4 className="comment">{comment.commenter.username} : {comment.post_comment}</h4>
@@ -171,6 +181,9 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
           .setZone("EST")
           .toLocaleString(DateTime.DATETIME_MED)}
       </h6>
+      {currentUser.id === comment.user_id ? 
+        <button className="delete-comment-button" 
+          onClick={(e) => handleCommentDelete(e, comment.id)}>✖️</button> : null  }
     </div> 
   ))
   
@@ -179,7 +192,7 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
       <div className="form-group">
         <input 
           id={id} 
-          className="post-text" 
+          className="edit-input" 
           type="text" 
           name="content"
           value={editPost.content}
@@ -188,7 +201,7 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
       <div className="btn-group">
         <button
           type="button"
-          className="btn post-cancel"
+          className="save-button"
           onClick={() => setEditing(false)}>
             Cancel
           <span className="visually-hidden"></span>
@@ -196,7 +209,7 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
         <button 
           type="submit"
           onClick={onEditSubmit}
-          className="btn btn__primary post-edit">
+          className="save-button">
             Save
           <span className="visually-hidden"></span>
         </button>
@@ -208,28 +221,28 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
     <>
     <button 
       type="button" 
-      className="btn" 
+      className="edit-button" 
       onClick={() => setEditing(true)}>
-        Edit 
+        ✏️
       <span className="visually-hidden"></span>
     </button>
     <button
       type="button"
-      className="btn btn__danger"
+      className="edit-button"
       onClick={handleDelete}>
-        Delete 
+        ✖️
       <span className="visually-hidden"></span>
     </button>
     </>
     );
 
   const showEditButton = currentUser.id === user_id ? 
-    <div className="user-post"> {isEditing ? editingTemplate : viewTemplate}</div>
+    <div className="post-message"> {isEditing ? editingTemplate : viewTemplate}</div>
     : null
 
   const showMessageButton = currentUser.id === user_id ?
     null :
-    <div className="user-post">{isReplying ? editingMessageTemplate : viewMessageTemplate}</div>
+    <div className="post-message">{isReplying ? editingMessageTemplate : viewMessageTemplate}</div>
 
   return (
     <>
@@ -243,6 +256,7 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderPosts,
       {user ? ( <button className="like-button" onClick={handleLikes}> 💖 {post_like } </button> ) : null}
       
       {user ? <div>{commentMap}</div> : null}
+      {/* {showDeleteButton} */}
       <input className="comment-input" type='text' name='post_comment' value={commentInput} onChange={handleChange} />
       <button id="add-book" className="comment-button" type='submit' value='Add Comment' onClick={onSubmit}>Post</button>
     </div>

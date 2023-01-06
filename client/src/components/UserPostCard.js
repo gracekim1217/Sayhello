@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 
 
 function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePost, deletePost, renderEditForm, setRenderEditForm}) {
-    const {id, content, image, user, like, comments, created_at } = post
+    const {id, content, image, user, like, comments, created_at, updated_at } = post
     const [isEditing, setEditing] = useState(false);
     // const [renderPosts, setRenderPosts] = useState({})
     // const [newContent, setNewContent] = useState('');
@@ -78,22 +78,22 @@ function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePos
                 
                 <input 
                     id={id} 
-                    className="post-text" 
+                    className="edit-input" 
                     type="text" 
                     value={formData.content}
                     onChange={handleChange}/>
             </div>
             <div className="btn-group">
+                <button type="submit" onClick={onSubmit} className="save-button">
+                    Save
+                    <span className="visually-hidden"></span>
+                </button>
                 <button
                     type="button"
-                    className="btn post-cancel"
+                    className="save-button"
                     onClick={() => setEditing(false)}
                     >
                     Cancel
-                    <span className="visually-hidden"></span>
-                </button>
-                <button type="submit" onClick={onSubmit} className="btn btn__primary post-edit">
-                    Save
                     <span className="visually-hidden"></span>
                 </button>
             </div>
@@ -108,7 +108,7 @@ function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePos
                     </h2>
                     <h6 className="time-stamp">
                         {DateTime
-                            .fromISO(created_at)
+                            .fromISO(updated_at)
                             .setZone("EST")
                             .toLocaleString(DateTime.DATETIME_MED)}
                     </h6>
@@ -116,15 +116,15 @@ function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePos
                 <div className="btn-group">
                     <button 
                         type="button" 
-                        className="btn" 
+                        className="comment-button" 
                         onClick={() => setEditing(true)}>
-                        Edit <span className="visually-hidden"></span>
+                        Edit <span ></span>
                     </button>
                     <button
                         type="button"
-                        className="btn btn__danger"
+                        className="comment-button"
                         onClick={handleDelete}>
-                        Delete <span className="visually-hidden"></span>
+                        Delete <span ></span>
                     </button>
                 </div>
             </div>

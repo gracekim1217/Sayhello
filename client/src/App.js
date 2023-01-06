@@ -75,7 +75,7 @@ function App() {
     <>
       {!sessionStorage.getItem('user_id') ? <Login/> :
         <div className="App">
-          <h1 className="h1">Name</h1>
+          <h1 className="h1">Hello World</h1>
           <Routes>
             <Route exact path='/' element={<Feed currentUser={currentUser} posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} addPost={addPost} handleUpdateLike={handleUpdateLike} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm} renderMessages={renderMessages} setRenderMessages={setRenderMessages}/>} />
             <Route path="signup" element={<SignUp />} />

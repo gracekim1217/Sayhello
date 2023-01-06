@@ -61,13 +61,13 @@ function UserMessageCard({message, renderMessages, setRenderMessages}) {
                 </div>
                 <input 
                     id={id} 
-                    className="post-text" 
+                    className="comment-input" 
                     type="text" 
                     value={formData.input}
                     name="input"
                     onChange={handleChange}/>
             </div>
-            <div className="btn-group">
+            <div >
                 <button type="submit" 
                     // onClick = {() => {
                     //     onSubmit()
@@ -75,13 +75,13 @@ function UserMessageCard({message, renderMessages, setRenderMessages}) {
                     //     } }
                     onClick={onSubmit}
                     // onSubmit={handleDelete}
-                    className="btn btn__primary post-edit">
+                    className="comment-button">
                         Send
                     <span className="visually-hidden"></span>
                 </button>
                 <button
                     type="button"
-                    className="btn btn__danger"
+                    className="comment-button"
                     onClick={handleDelete}>
                         Delete 
                     <span className="visually-hidden"></span>
@@ -92,7 +92,7 @@ function UserMessageCard({message, renderMessages, setRenderMessages}) {
 
     return(
         <div>
-            <div className="post">{editingTemplate}</div>
+            <div className="user-post">{editingTemplate}</div>
         </div>
     )
 }

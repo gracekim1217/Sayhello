@@ -49,16 +49,16 @@ function Login({setCurrentUser}) {
 
   return (
     <> 
-    <form onSubmit={onSubmitLogin}>
+    <form className="loginForm" onSubmit={onSubmitLogin}>
       <div id="login-page" className="content" > 
-        <label>Username : </label>
-        <input placeholder="Your Username..." type='text' name='username' value={formData.username} onChange={handleChange} />
-      
-        <label>Password : </label>
-        <input placeholder="Your Password..." type='password' name='password' value={formData.password} onChange={handleChange} />
-      
-        <input id="login-form" className="button" type='submit' value='Log In' />
-        <input id="signup-form" className="button" type='submit' value="Sign Up" onClick={onSubmitSignIn} />
+        <div className="login-input-div">Username : <input className='login-input' placeholder="Username" type='text' name='username' value={formData.username} onChange={handleChange} />
+        </div>
+
+        <div className="login-input-div">Password : <input className='login-input' placeholder="Password" type='password' name='password' value={formData.password} onChange={handleChange} />
+        </div>
+
+        <input id="loginForm" className="submitButton" type='submit' value='Log In' />
+        <input id="signup-form" className="submitButton" type='submit' value="Sign Up" onClick={onSubmitSignIn} />
       </div>
     </form>
     </>

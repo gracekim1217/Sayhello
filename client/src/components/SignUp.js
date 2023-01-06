@@ -42,23 +42,25 @@ function SignUp() {
 
     return (
         <> 
-        <button onClick={handleBack}>Back</button>
+        <button className="back-button" onClick={handleBack}>Back</button>
 
-        <div id ="signup-page" className="content"> 
-            <label>Username : </label>  
-            <input placeholder="Your Username..." type='text' name='username' value={username} onChange={handleChange} />
-        
-            <label>Password : </label>
-            <input placeholder="Your Password..." type='password' name='password' value={password} onChange={handleChange} />
+        <form id ="loginForm" className="loginForm"> 
+        <div id="login-page" className="content" > 
+            <div className="login-input-div">Username :  <input className='login-input' placeholder="Your Username" type='text' name='username' value={username} onChange={handleChange} />
+            </div> 
 
-            <label>First Name : </label>  
-            <input placeholder="Your Username..." type='text' name='first_name' value={first_name} onChange={handleChange} />
+            <div className="login-input-div">Password : <input  className='login-input' placeholder="Your Password" type='password' name='password' value={password} onChange={handleChange} />
+            </div>
 
-            <label>Last Name : </label>  
-            <input placeholder="Your Username..." type='text' name='last_name' value={last_name} onChange={handleChange} />
-            
-            <input id="signup-form" className="button" type='submit' value="Sign Up" onClick={onSubmit}/>
+            <div className="login-input-div">First Name : <input className='login-input' placeholder="Your First Name" type='text' name='first_name' value={first_name} onChange={handleChange} />
+            </div>  
+
+            <div className="login-input-div">Last Name :  <input className='login-input' placeholder="Your Last Name" type='text' name='last_name' value={last_name} onChange={handleChange} />
+            </div> 
+
+            <input id="loginForm" className="submitButton" type='submit' value="Sign Up" onClick={onSubmit}/>
         </div>
+        </form>
         </>
     )
 }

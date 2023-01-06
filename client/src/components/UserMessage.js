@@ -14,7 +14,7 @@ function UserMessage({messages, currentUser, addMessage, renderMessages, setRend
         <div>
             <button className="back-button" onClick={handleBack}>🔙</button>
             <div>
-                <h2>Messages </h2>
+                {/* <h2>Messages </h2> */}
                 <div>{messages && messages.filter(message => message.receiver_id === currentUser.id)
                     .map(message => 
                     <UserMessageCard key={message.id} message={message} renderMessages={renderMessages} setRenderMessages={setRenderMessages} currentUser={currentUser} addMessage={addMessage}/>)}

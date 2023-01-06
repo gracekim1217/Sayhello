@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :update]
   resources :posts
   resources :likes, only: [:index, :show, :create, :update]
-  resources :comments, only: [:index, :show, :create, :update]
+  resources :comments, only: [:index, :show, :create, :update, :destroy]
   resources :messages
 
   post "/login", to: "sessions#create"
