@@ -23,7 +23,7 @@ function Feed({currentUser, posts, addPost, deletePost, handleUpdateLike, render
             </div>
             <div className="feed-page">
                 <h1 className="h2">Feed</h1>
-                <NewPost addPost={addPost} renderPosts={renderPosts} setRenderPosts={setRenderPosts}/>
+                <NewPost currentUser={currentUser} addPost={addPost} renderPosts={renderPosts} setRenderPosts={setRenderPosts}/>
                 <PostContainer posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} deletePost={deletePost} handleUpdateLike={handleUpdateLike} renderMessages={renderMessages} setRenderMessages={setRenderMessages} currentUser={currentUser} messages={messages} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm}/>
             </div>
         </>

@@ -14,6 +14,13 @@ function Login({setCurrentUser}) {
   const navigate = useNavigate()
   const [error, setErrors] = useState([])
 
+  const currentUser = sessionStorage.getItem("user_id")
+
+  useEffect(() => {
+    if (currentUser) {
+     navigate("/")
+    } 
+  },[currentUser, navigate])
 
   function onSubmitLogin(e){
     e.preventDefault();
@@ -29,10 +36,10 @@ function Login({setCurrentUser}) {
     .then(resp => {
       if(resp.ok){
           resp.json().then(user => {
-              sessionStorage.setItem("user_id", user.id)
-                    sessionStorage.setItem('username', user.username);
-      sessionStorage.setItem('first_name', user.first_name);
-      sessionStorage.setItem('last_name', user.last_name);
+            sessionStorage.setItem("user_id", user.id)
+            sessionStorage.setItem('username', user.username);
+            sessionStorage.setItem('first_name', user.first_name);
+            sessionStorage.setItem('last_name', user.last_name);
               // setToggleLogin(true)
       setCurrentUser(user);
 

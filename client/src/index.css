@@ -1,6 +1,6 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 body {
   margin: 0;
@@ -91,7 +91,7 @@ code {
   background-color: rgb(239, 217, 237);
   border-radius: 50px;
   font-weight: 50px;
-  border-color: rgb(253, 253, 254);
+  border-color: rgb(254, 253, 254);
   color:rgb(134, 22, 111)
 }
 

@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 function UserMessageCard({message, renderMessages, setRenderMessages}) {
     const {id, input, sender, sender_id, receiver_id, created_at} = message
     // const [isReplying, setIsReplying] = useState(false);
+    // console.log(message.receiver_id)
     // console.log(created_at)
     const [formData, setFormData] = useState({
         input: '',
@@ -19,6 +20,17 @@ function UserMessageCard({message, renderMessages, setRenderMessages}) {
         setFormData({ ...formData, [name]: value })
         // setFormData({input: e.target.value});
         }
+
+    function handleDelete(e) {
+        e.preventDefault();
+        fetch(`/messages/${id}`,{
+        method:'DELETE'
+        })
+        .then(() => setRenderMessages(!renderMessages))
+
+        //  navigate("/users/:id")
+        // window.location.reload();
+    }
 
     function onSubmit(e){
         e.preventDefault();
@@ -39,13 +51,13 @@ function UserMessageCard({message, renderMessages, setRenderMessages}) {
                 resp.json().then(() => {
                     setRenderMessages(!renderMessages)
                     // navigate('/')
+                    handleDelete();
                 })
             } else{
                 resp.json().then(data => {
                     console.log(data.errors)
                     setErrors(data.errors)
                 })
-        handleDelete();
             }
         })
 
@@ -63,16 +75,7 @@ function UserMessageCard({message, renderMessages, setRenderMessages}) {
             // navigate(`/users/:id`)
     }    
 
-    function handleDelete(e) {
-        e.preventDefault();
-        fetch(`/messages/${id}`,{
-        method:'DELETE'
-        })
-        .then(() => setRenderMessages(!renderMessages))
-
-        //  navigate("/users/:id")
-        // window.location.reload();
-    }
+ 
 
     const editingTemplate = (
         <form className="stack-small" onSubmit={onSubmit}>
@@ -94,15 +97,16 @@ function UserMessageCard({message, renderMessages, setRenderMessages}) {
             </div>
             <div className="btn-group">
                 <button type="submit" 
-                // onClick = {() => {
-                //     onSubmit()
-                //      handleDelete()} }
-                onClick={onSubmit}
+                onClick = {() => {
+                    onSubmit()
+                     handleDelete()} }
+                // onClick={onSubmit}
                 // onSubmit={handleDelete}
                 className="btn btn__primary post-edit">
                     Send
                     <span className="visually-hidden"></span>
-                </button><button
+                </button>
+                <button
                         type="button"
                         className="btn btn__danger"
                         onClick={handleDelete}>

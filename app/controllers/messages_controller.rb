@@ -1,11 +1,11 @@
 class MessagesController < ApplicationController
     def index
-        render json: Message.all.order('created_at ASC'), status: :ok
+        render json: Message.all.order('created_at DESC'), status: :ok
     end
 
     def show
         message = find_message
-        render json: message.order('created_at ASC'), status: :ok
+        render json: message.order('created_at DESC'), status: :ok
     end
 
     # def update

@@ -8,6 +8,8 @@ function UserPost({currentUser, updatePost, renderPosts, setRenderPosts, posts, 
     // const {id, username, first_name, last_name, photo} = currentUser
     // const [imgSrc, setImgSrc] = useState("Invalid Image Source");
     // console.log(posts)
+    const currentUserId = sessionStorage.getItem('user_id')
+
     const navigate = useNavigate()
 
     function handleBack() {

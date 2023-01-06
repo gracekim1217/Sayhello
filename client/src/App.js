@@ -19,17 +19,16 @@ function App() {
 
 
   const [currentUser, setCurrentUser] = useState({
-    user_id: sessionStorage.getItem('user_id'),
-    username:  sessionStorage.getItem('username'),
-    first_name: sessionStorage.getItem('first_name'),
-    last_name: sessionStorage.getItem('last_name'),
-    photo: sessionStorage.getItem('photo')
+    // user_id: sessionStorage.getItem('user_id'),
+    // username:  sessionStorage.getItem('username'),
+    // first_name: sessionStorage.getItem('first_name'),
+    // last_name: sessionStorage.getItem('last_name'),
   })
 
-  // const currentUserId = sessionStorage.getItem('user_id')
-  // const currentUsername = sessionStorage.getItem('username')
-  // const currentFirstName = sessionStorage.getItem('first_name')
-  // const currentLastName = sessionStorage.getItem('last_name')
+  const currentUserId = sessionStorage.getItem('user_id')
+  const currentUsername = sessionStorage.getItem('username')
+  const currentFirstName = sessionStorage.getItem('first_name')
+  const currentLastName = sessionStorage.getItem('last_name')
   // const currentPhoto = sessionStorage.getItem('photo')
   // const currentPost = sessionStorage.getItem('post')
   // console.log(currentUser)
@@ -100,12 +99,12 @@ function App() {
           <h1 className="h1">Name</h1>
 
           <Routes>
-            <Route exact path='/' element={<Feed posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} currentUser={currentUser} addPost={addPost} handleUpdateLike={handleUpdateLike} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm}/>} />
+            <Route exact path='/' element={<Feed currentUser={currentUser} posts={posts} renderPosts={renderPosts} setRenderPosts={setRenderPosts} addPost={addPost} handleUpdateLike={handleUpdateLike} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm} renderMessages={renderMessages} setRenderMessages={setRenderMessages}/>} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-            <Route path="/users/:id/posts" element={<UserPost renderPosts={renderPosts} setRenderPosts={setRenderPosts} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm} currentUser={currentUser} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />
-            <Route path="/users/:id/messages" element={<UserMessage renderMessages={renderMessages} setRenderMessages={setRenderMessages} currentUser={currentUser} messages={messages} addMessage={addMessage}/>} />
-            <Route path="/users/:id/profile" element={<UserProfile currentUser={currentUser} updateUser={updateUser} editUser={editUser}/>} />
+            <Route path="/users/:id/posts" element={<UserPost currentUser={currentUser} renderPosts={renderPosts} setRenderPosts={setRenderPosts} renderEditForm={renderEditForm} setRenderEditForm={setRenderEditForm} posts={posts} updatePost={updatePost} deletePost={deletePost}/>} />
+            <Route path="/users/:id/messages" element={<UserMessage currentUser={currentUser} renderMessages={renderMessages} setRenderMessages={setRenderMessages}  messages={messages} addMessage={addMessage}/>} />
+            <Route path="/users/:id/profile" element={<UserProfile  updateUser={updateUser} editUser={editUser}/>} />
           </Routes>
         </div>
       }

@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom'
 
 function UserMessage({messages, currentUser, addMessage, renderMessages, setRenderMessages}) {
     // console.log(messages.filter(message => message.receiver.id))
-    console.log(currentUser)
     const navigate = useNavigate()
+    const currentUserId = sessionStorage.getItem('user_id')
+    // const {id} = currentUserId
+    console.log(currentUserId)
+
 
     // const [imgSrc, setImgSrc] = useState("Invalid Image Source");
 

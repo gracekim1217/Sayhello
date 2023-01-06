@@ -1,20 +1,20 @@
 import React, { useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function NewPost({addPost, renderPosts, setRenderPosts}) {
+function NewPost({currentUser, renderPosts, setRenderPosts}) {
     const navigate = useNavigate();
     const [input, setInput] = useState('')
     const [formData, setFormData] = useState({
         content: '',
         // image: '',
-        user_id: sessionStorage.getItem('user_id'),
+        user_id: currentUser.id,
         post_like: 0
       })
     // const [like, setLike] = useState(0)
     const [errors, setErrors] = useState([])
 
 
-    const {content, image, user_id, post_like} = formData
+    // const {content, image, user_id, post_like} = formData
 
     const handleChange = (e) => {
         const { name, value } = e.target
