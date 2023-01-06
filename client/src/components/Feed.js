@@ -3,7 +3,6 @@ import NewPost from "./NewPost"
 import DisplayProfile from "./DisplayProfile"
 import { useNavigate } from "react-router-dom";
 
-
 function Feed({currentUser, posts, addPost, deletePost, handleUpdateLike, renderPosts, setRenderPosts, renderEditForm, setRenderEditForm, messages, renderMessages, setRenderMessages}){
     // console.log(posts)
     const navigate = useNavigate()
@@ -19,7 +18,6 @@ function Feed({currentUser, posts, addPost, deletePost, handleUpdateLike, render
             <div className="feed-profile">
                 <h2 className="h2">Profile</h2>
                 <DisplayProfile currentUser={currentUser}/>
-                {/* {users.map(user => <DisplayProfile key={user.id} user={user} currentUserId={currentUserId}  />)} */}
             </div>
             <div className="feed-page">
                 <h1 className="h2">Feed</h1>

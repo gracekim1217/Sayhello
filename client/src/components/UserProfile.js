@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 
-
 function UserProfile({currentUser, updateUser, editUser}) {
-        // const {username, first_name, last_name} = currentUser
-      console.log(currentUser)
+    //   console.log(currentUser)
     const currentUsername = sessionStorage.getItem('username')
     const currentFirstName = sessionStorage.getItem('first_name')
     const currentLastName = sessionStorage.getItem('last_name')
@@ -30,7 +28,6 @@ function UserProfile({currentUser, updateUser, editUser}) {
         .then(res => res.json())
         .then(data => {
             updateUser(data);
-            // setNewContent("");
             setEditing(false);
         });
     }
@@ -42,7 +39,6 @@ function UserProfile({currentUser, updateUser, editUser}) {
                     {currentFirstName}
                 </label>
                 <input 
-                    // id={id} 
                     className="post-text" 
                     type="text" 
                     value={formData.content}
@@ -52,18 +48,21 @@ function UserProfile({currentUser, updateUser, editUser}) {
                 <button
                     type="button"
                     className="btn post-cancel"
-                    onClick={() => setEditing(false)}
-                    >
-                    Cancel
+                    onClick={() => setEditing(false)}>
+                        Cancel
                     <span className="visually-hidden"></span>
                 </button>
-                <button type="submit" onClick={onSubmit} className="btn btn__primary post-edit">
-                    Save
+                <button 
+                    type="submit" 
+                    onClick={onSubmit} 
+                    className="btn btn__primary post-edit">
+                        Save
                     <span className="visually-hidden"></span>
                 </button>
             </div>
         </form>
         );
+
         const viewTemplate = (
             <div className="stack-small">
                 <div className="c-cb">
@@ -76,14 +75,9 @@ function UserProfile({currentUser, updateUser, editUser}) {
                         type="button" 
                         className="btn" 
                         onClick={() => setEditing(true)}>
-                        Edit <span className="visually-hidden"></span>
+                            Edit 
+                        <span className="visually-hidden"></span>
                     </button>
-                    {/* <button
-                        type="button"
-                        className="btn btn__danger"
-                        onClick={handleDelete}>
-                        Delete <span className="visually-hidden"></span>
-                    </button> */}
                 </div>
             </div>
         )
@@ -94,9 +88,8 @@ function UserProfile({currentUser, updateUser, editUser}) {
             <p> Username : {currentUsername}</p>
             <p> First Name : {currentFirstName}</p>
             <p> Last Name : {currentLastName}</p>
-            {/* <button>Edit Profile</button> */}
+            <button>Edit Profile</button>
             <div className="post">{isEditing ? editingTemplate : viewTemplate}</div>
-
         </div>
     )
 }

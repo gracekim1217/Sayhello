@@ -6,15 +6,10 @@ function NewPost({currentUser, renderPosts, setRenderPosts}) {
     const [input, setInput] = useState('')
     const [formData, setFormData] = useState({
         content: '',
-        // image: '',
         user_id: currentUser.id,
         post_like: 0
-      })
-    // const [like, setLike] = useState(0)
+    })
     const [errors, setErrors] = useState([])
-
-
-    // const {content, image, user_id, post_like} = formData
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -26,9 +21,6 @@ function NewPost({currentUser, renderPosts, setRenderPosts}) {
         e.preventDefault()
         setInput('')
         const post = {
-            // ...formData,
-            // // like: like
-            // post_like : 0
             content: formData.content,
             user_id: formData.user_id,
             post_like: formData.post_like
@@ -39,50 +31,23 @@ function NewPost({currentUser, renderPosts, setRenderPosts}) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(post)
         })
-        .then(resp => {
-          if(resp.ok){
-              resp.json().then(() => {
-                  setRenderPosts(!renderPosts)
-                  navigate('/')})
-          } else{
-              resp.json().then(data => {
-                  console.log(data.errors)
-                  setErrors(data.errors)
-              })
-          }
-      })
-        // .then(res => res.json())
-        // .then(post => addPost(post))
-
-        // .then(post => addPost({
-        //   content,
-        //   image,
-        //   user_id,
-        //   like: [],
-
-        // })
-        
-
-        // .then(navigate("/"))
+        .then(resp => resp.json())
+        .then(() => {
+            setRenderPosts(!renderPosts)
+            navigate('/')})
     }
-    
-
-    return(
+        
+    return (
         <div id ='book-form' className='content'>
         <div >
-          {/* <label>Title : </label> */}
-          <input className="feed-input" type='text' name='content' value={input} onChange={handleChange} />
-          
-          {/* <label> Image : </label>
-          <input type='text' name='image' value={formData.image} onChange={handleChange} /> */}
-        
-          {/* <label>Year : </label>
-          <input type='number' name='year' value={formData.year} onChange={handleChange} />
-
-          <label>Description</label>
-          <textarea type='text' rows='4' cols='50' name='description' value={formData.description} onChange={handleChange} /> */}
-        
-          <button id="add-book" className="feed-button" type='submit' value='Add Post' onClick={onSubmit}>Post</button>
+            <input className="feed-input" type='text' name='content' value={input} onChange={handleChange} />        
+            <button 
+            id="add-book"
+            className="feed-button"
+            type='submit'
+            value='Add Post'
+            onClick={onSubmit}>Post
+            </button>
         </div>
       </div>
     )

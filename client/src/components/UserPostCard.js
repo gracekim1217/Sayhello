@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { DateTime } from "luxon";
+
 
 function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePost, deletePost, renderEditForm, setRenderEditForm}) {
     const {id, content, image, user, like, comments, created_at } = post
@@ -104,7 +106,12 @@ function UserPostCard({post, renderPosts, setRenderPosts, currentUser, updatePos
                     <h2 className="post-input" htmlFor={id}>
                     {content}
                     </h2>
-                    <h6 className="time-stamp"> {created_at} </h6>
+                    <h6 className="time-stamp">
+                        {DateTime
+                            .fromISO(created_at)
+                            .setZone("EST")
+                            .toLocaleString(DateTime.DATETIME_MED)}
+                    </h6>
                 </div>
                 <div className="btn-group">
                     <button 

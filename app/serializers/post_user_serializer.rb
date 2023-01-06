@@ -8,7 +8,7 @@ class PostUserSerializer < ActiveModel::Serializer
 
   def comments
     object.comments.collect do |comment| 
-      {id: comment.id, post_id: comment.post_id, post_comment: comment.post_comment, user_id: comment.user_id, commenter: comment.commenter}
+      {id: comment.id, post_id: comment.post_id, created_at: comment.created_at, post_comment: comment.post_comment, user_id: comment.user_id, commenter: comment.commenter}
     end
   end
 end
