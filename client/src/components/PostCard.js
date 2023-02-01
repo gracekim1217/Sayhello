@@ -180,10 +180,11 @@ function PostCard({post, currentUser, deletePost, handleUpdateLike, renderCommen
           .fromISO(comment.created_at)
           .setZone("EST")
           .toLocaleString(DateTime.DATETIME_MED)}
-      </h6>
-      {currentUser.id === comment.user_id ? 
-        <button className="delete-comment-button" 
+          {/* <br/> */}
+        {currentUser.id === comment.user_id ? 
+          <button className="delete-comment-button" 
           onClick={(e) => handleCommentDelete(e, comment.id)}>✖️</button> : null  }
+        </h6>
     </div> 
   ))
   
